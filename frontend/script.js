@@ -50,4 +50,30 @@ hoverTargets.forEach((el) => {
   });
 });
 
+// In your contact form handler (frontend)
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  
+  // Use absolute URL with HTTPS
+  const backendUrl = "https://my-portfolio-backend-tn8w.onrender.com";
+
+  try {
+    const response = await fetch(`${backendUrl}/api/contact`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: e.target.name.value,
+        email: e.target.email.value,
+        message: e.target.message.value
+      }),
+      credentials: 'same-origin'
+    });
+
+    if (!response.ok) throw new Error(await response.text());
+    alert('Message sent successfully!');
+  } catch (error) {
+    console.error('Submission error:', error);
+    alert(`Failed to send: ${error.message}`);
+  }
+};
 

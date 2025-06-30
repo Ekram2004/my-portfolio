@@ -38,6 +38,20 @@ app.post('/contact', (req, res) => {
     });
 });
 
+const corsOptions = {
+  origin: [
+    "https://my-portfolio-five-dusky-35.vercel.app/", 
+    "http://localhost:3000", 
+  ],
+  methods: ["POST", "OPTIONS"], 
+  allowedHeaders: ["Content-Type"],
+};
+
+app.use(cors(corsOptions));
+
+
+app.options('/api/contact', cors(corsOptions)); 
+
 app.listen(PORT, () => {
     console.log(`server is running on "${PORT}`);
 });
